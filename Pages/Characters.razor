@@ -1,0 +1,109 @@
+﻿@page "/characters"
+@using System.Net.Http
+@using System.Net.Http.Json
+@using System.Threading.Tasks
+@inject HttpClient Http
+
+<PageTitle>Personajes de Rick y Morty enlistados</PageTitle>
+
+<h3>Personajes de Rick y Morty enlistados</h3>
+<div class="total-likes-display">
+    Total de Likes en General: <strong>@TotalLikes</strong>
+</div>
+
+<div class="character-grid">
+        @foreach (var character in characters)
+        {
+            <div class="character-card">
+                <img src="@character.Image" alt="@character.Name" onerror="this.onerror=null;this.src='https://placehold.co/200x200/cccccc/000000?text=No+Image';" />
+
+                <h4>@character.Name</h4>
+                <p><strong>Estado:</strong> @character.Status</p>
+                <p><strong>Especie:</strong> @character.Species</p>
+                <div class="score-section">
+                    <button class="btn-like" @onclick="() => LikeCharacter(character)">Like</button>
+                    <button class="btn-dislike" @onclick="() => DislikeCharacter(character)">Dislike</button>
+                    <p>Puntaje: <span class="score-value">@character.Score</span></p>
+                </div>
+            </div>
+        }
+</div>
+
+
+@code {
+
+    // almacenar los personajes 
+    private List<Character> characters;
+
+    private class ApiResponse
+    {
+        public List<Character> Results { get; set; }
+    }
+    
+    private int TotalLikes
+    {
+        get
+        {
+            
+            int total = 0;
+
+            foreach (var character in characters)
+            {
+                if (character.Score > 0)
+                {
+                    total += character.Score; // Solo suma los puntajes positivos
+                }
+            }
+
+            return total;
+        }
+    }
+
+    // modelo de datos para un personaje 
+
+    public class Character
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Status { get; set; }
+        public string Species { get; set; }
+        public string Image { get; set; }
+        public string Gender { get; set; } 
+        public int Score { get; set; } = 0; 
+    }
+
+   
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            // Realiza la solicitud HTTP GET a la API 
+  
+            var response = await Http.GetFromJsonAsync<ApiResponse>("https://rickandmortyapi.com/api/character");
+
+            // asigna los resultados a la variable 'characters'
+            characters = response?.Results;
+        }
+        catch (Exception ex)
+        {
+
+            
+            Console.WriteLine($"Ocurrio un error al cargar la lista de los personajes: {ex.Message}");
+            
+        }
+    }
+
+    // Método para incrementar el puntaje de un personaje 
+    private void LikeCharacter(Character character)
+    {
+        character.Score++; // Incrementa el puntaje
+        
+    }
+
+    // Método para decrementar el puntaje de un personaje cuando se hace clic en "Dislike"
+    private void DislikeCharacter(Character character)
+    {
+        character.Score--; // Disminuye el puntaje
+        
+    }
+}
