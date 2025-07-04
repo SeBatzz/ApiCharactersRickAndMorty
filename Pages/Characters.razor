@@ -15,7 +15,7 @@
         @foreach (var character in characters)
         {
             <div class="character-card">
-                <img src="@character.Image" alt="@character.Name" onerror="this.onerror=null;this.src='https://placehold.co/200x200/cccccc/000000?text=No+Image';" />
+                <img src="@character.Image" alt="@character.Name" />
 
                 <h4>@character.Name</h4>
                 <p><strong>Estado:</strong> @character.Status</p>
