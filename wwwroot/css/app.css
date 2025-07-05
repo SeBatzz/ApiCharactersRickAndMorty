@@ -116,19 +116,94 @@ code {
 .character-card {
     border: 1px solid #ccc; 
     padding: 10px;
-    text-align: center; /
+    text-align: center; 
 }
 
-    .character-card img {
+.character-card img {
         max-width: 100%; 
         height: auto; 
         display: block; 
         margin: 0 auto 10px auto; 
-    }
+}
 
 /* botones Like/Dislike */
-.btn-like, .btn-dislike {
+.btn-like {
+    background-color: #4CAF50 !important; /* Verde */
+    color: white; 
     padding: 5px 10px;
     margin: 5px;
     cursor: pointer;
+}
+
+.btn-dislike {
+    background-color: #F44336 !important; /* Rojo */
+    color: white; 
+    padding: 5px 10px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+
+
+/* Estilos para los controles de paginación */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    gap: 15px;
+    margin-top: 30px;
+    margin-bottom: 30px; 
+    color: #f8f8f2; 
+    font-size: 1.1em; 
+}
+
+.btn-page {
+    background-color: #610cee; /* Un tono de azul para los botones */
+    color: white; /* Texto blanco en los botones */
+    border: none; 
+    border-radius: 5px; 
+    padding: 10px 20px; 
+    cursor: pointer; /* Cambia el cursor a una mano al pasar por encima */
+    font-size: 1em; 
+    font-weight: bold;
+    transition: background-color 0.2s ease; /* Transición suave para el color de fondo */
+}
+
+    .btn-page:hover:not(:disabled) {
+        background-color: #1976D2; 
+    }
+
+    .btn-page:disabled {
+        background-color: #555; /* Gris oscuro cuando el botón está deshabilitado */
+        cursor: not-allowed; 
+        opacity: 0.6; 
+    }
+
+.pagination-controls span { 
+    color: black;
+    font-weight: bold; 
+}
+
+/* Estilos personalizados para la barra de navegación */
+.top-row.navbar {
+    /* Degradado lineal de morado a amarillo */
+    background-image: linear-gradient(to right, #4CAF50, white);
+    color: #212525
+}
+
+
+.nav-scrollable {
+    background-image: linear-gradient(to right, #4CAF50, white);
+    color: #212525; /* Mismo color de texto para el menú lateral */
+}
+
+.content {
+    /* Degradado radial del centro a los bordes, de verde a blanco */
+    background-image: radial-gradient(circle at center, #4CAF50, white);
+    padding-top: 1.1rem; 
+}
+.top-row {
+    /* Degradado lineal de amarillo (abajo) a morado (arriba) */
+    background-image: linear-gradient(to top, white, #4CAF50);
+    color: white;
 }
